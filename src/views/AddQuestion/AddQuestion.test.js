@@ -4,6 +4,7 @@ import configureMockStore from "redux-mock-store";
 import { handleInitialData } from "../../redux/actions/shared";
 import AddQuestion from "./AddQuestion";
 import { Provider } from "react-redux";
+import thunk from "redux-thunk";
 import { setAuthUser } from "../../redux/actions/authUser";
 import { handleSaveQuestion } from "../../redux/actions/questions";
 
@@ -20,7 +21,7 @@ import {
 import { SET_AUTH_USER } from "../../redux/actions/actionTypes";
 
 // jest.mock("react-redux");
-const mockStore = configureMockStore([]);
+const mockStore = configureMockStore([thunk]);
 
 describe("test for addQuestion component", () => {
   let store;
