@@ -19,16 +19,16 @@ const Login = () => {
   let navigate = useNavigate();
   const users = useSelector(({ users }) => users);
 
-  const [userSelected, setUserSelected] = useState({ name: "Select User" });
+  const [userSelected, setUserSelected] = useState();
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleSelect = (e) => {
-    setUserSelected({ id: e.target.value });
+    setUserSelected(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const userID = userSelected.id;
+    const userID = userSelected;
 
     if (userID !== "") {
       localStorage.setItem("user", JSON.stringify(users[userID]));
@@ -71,16 +71,16 @@ const Login = () => {
                       <small>{errorMessage}</small>
                     </div>
                   ) : null}
-                  <Form.Select aria-label="select user" onChange={handleSelect}>
-                    <option value="">{userSelected.name}</option>
+                  <Form.Select
+                    aria-label="select user"
+                    onChange={handleSelect}
+                    role="userSelect"
+                  >
+                    <option value="">Select User</option>
                     {users
                       ? Object.values(users).map((user) => {
                           return (
-                            <option
-                              key={user.id}
-                              onClick={() => setUserSelected(user.id)}
-                              value={user.id}
-                            >
+                            <option key={user.id} value={user.id}>
                               {user.name}
                             </option>
                           );
@@ -89,7 +89,7 @@ const Login = () => {
                   </Form.Select>
                   <Button
                     onClick={handleSubmit}
-                    disabled={!userSelected.id}
+                    disabled={!userSelected}
                     className="my-2 w-100"
                     style={{
                       fontSize: "1.12rem",

@@ -4,7 +4,10 @@ import configureMockStore from "redux-mock-store";
 import { handleInitialData } from "../../redux/actions/shared";
 import Login from "./Login";
 import { Provider } from "react-redux";
+import { setAuthUser } from "../../redux/actions/authUser";
+
 import { useSelector, useDispatch } from "react-redux";
+import reducersRoot from "../../redux/reducers";
 
 import { initCreateStore } from "../../redux/store";
 import {
@@ -13,16 +16,25 @@ import {
   Routes,
   MemoryRouter,
 } from "react-router-dom";
-const mockStore = configureMockStore();
-const store = mockStore();
+import { SET_AUTH_USER } from "../../redux/actions/actionTypes";
+const mockStore = configureMockStore([]);
+
 describe("test for login component", () => {
+  let store;
+  beforeEach(() => {
+    store = mockStore({
+      users: {
+        user1: { id: "user1", name: "User One" },
+        user2: { id: "user2", name: "User Two" },
+      },
+      authenticatedUser: null,
+    });
+  });
   test("if login is mounted on DOM", () => {
     render(
-      <Provider store={initCreateStore()}>
+      <Provider store={store}>
         <Router>
-          <Routes>
-            <Route path="/" element={<Login />} />
-          </Routes>
+          <Login />
         </Router>
       </Provider>
     );
@@ -30,45 +42,38 @@ describe("test for login component", () => {
     expect(divElement).toBeDefined();
   });
 
-  // test("if navigation is successful after login", () => {
-  //   render(
-  //     <Provider store={store}>
-  //       <Router>
-  //         <Routes>
-  //           <Route path="/" element={<Login />} />
-  //         </Routes>
-  //       </Router>
-  //     </Provider>
-  //   );
+  test("if users are available", () => {
+    const { getByText } = render(
+      <Provider store={store}>
+        <Router>
+          <Login />
+        </Router>
+      </Provider>
+    );
+    const userOneElement = getByText("User One");
+    const userTwoElement = getByText("User Two");
+    expect(userOneElement).toBeDefined();
+    expect(userTwoElement).toBeDefined();
+  });
 
-  //   const buttonElement = screen.getByRole("button");
-  //   fireEvent.click(buttonElement);
-  //   console.log("bhbh", store.getActions());
-  //   expect(store.getActions()).toEqual([{ type: "SET_AUTH_USER" }]);
-  // });
+  test("if users are available", () => {
+    const { getByText, getByRole } = render(
+      <Provider store={store}>
+        <Router>
+          <Login />
+        </Router>
+      </Provider>
+    );
+    const userOneElement = getByRole("userSelect");
+    fireEvent.change(userOneElement, {
+      target: { value: "user1" },
+    });
 
-  // test("if user options are loaded", async () => {
-  //   let store;
-  //   beforeEach(() => {
-  //     store = mockStore({ myData: "Some data" });
-  //   });
+    const buttonElement = getByRole("button", { name: "Sign In" });
+    fireEvent.submit(buttonElement);
 
-  //   render(
-  //     <Provider store={initCreateStore()}>
-  //       <Router>
-  //         <Routes>
-  //           <Route path="/" element={<Login />} />
-  //         </Routes>
-  //       </Router>
-  //     </Provider>
-  //   );
+    const actions = store.getActions();
 
-  //   const dispatch = useDispatch();
-  //   dispatch(handleInitialData());
-  //   const users = await act(() => useSelector(({ users }) => users));
-  //   console.log(users);
-  //   const divElement = screen.getAllByRole("option");
-  //   console.log("ahjdhd", divElement.length);
-  //   expect(divElement.length).toBeGreaterThan(1);
-  // });
+    expect(actions).toEqual([setAuthUser("user1")]);
+  });
 });

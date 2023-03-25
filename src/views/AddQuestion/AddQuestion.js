@@ -14,6 +14,7 @@ const AddQuestion = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [validated, setValidated] = useState(false);
+  const [error, setError] = useState("");
   const authenticatedUser = useSelector(
     ({ authenticatedUser }) => authenticatedUser
   );
@@ -26,8 +27,12 @@ const AddQuestion = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { optionOne, optionTwo } = values;
 
+    const { optionOne, optionTwo } = values;
+    if (!optionOne || !optionTwo) {
+      setError("Field is required");
+      return;
+    }
     new Promise((resolve, reject) => {
       setIsLoading(true);
       dispatch(handleSaveQuestion(optionOne, optionTwo, authenticatedUser));
@@ -46,7 +51,7 @@ const AddQuestion = () => {
   }
 
   return (
-    <Fragment>
+    <div role="addquestion">
       <Layout>
         <Card.Header>
           <Card.Title className="mb-0 text-center">
@@ -56,7 +61,7 @@ const AddQuestion = () => {
 
         <Card.Body>
           <Card.Text>Complete the question:</Card.Text>
-          <Form onSubmit={handleSubmit}>
+          <Form>
             <Card.Title style={{ fontSize: "16px" }}>
               Would your rather ...
             </Card.Title>
@@ -67,7 +72,13 @@ const AddQuestion = () => {
                 value={setValues.optionOne}
                 placeholder="Enter option one"
                 onChange={handleChange}
+                required
+                isInvalid={error !== ""}
               />
+              <Form.Control.Feedback type="invalid">
+                {" "}
+                {error}{" "}
+              </Form.Control.Feedback>
             </Form.Group>
             <Card.Text className={styles.divider}>or</Card.Text>
             <Form.Group>
@@ -77,12 +88,17 @@ const AddQuestion = () => {
                 value={setValues.optionTwo}
                 placeholder="Enter option Two"
                 onChange={handleChange}
+                required
+                isInvalid={error !== ""}
               />
+              <Form.Control.Feedback type="invalid">
+                {" "}
+                {error}{" "}
+              </Form.Control.Feedback>
             </Form.Group>
             <Button
               type="submit"
               onClick={handleSubmit}
-              disabled={disabled}
               className="my-3 w-100"
               style={{
                 fontSize: "1.12rem",
@@ -109,7 +125,7 @@ const AddQuestion = () => {
           </Form>
         </Card.Body>
       </Layout>
-    </Fragment>
+    </div>
   );
 };
 

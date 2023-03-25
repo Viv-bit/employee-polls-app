@@ -7,7 +7,7 @@ import { handleInitialData } from "./redux/actions/shared";
 // Import all components here
 import Login from "./views/Login/Login";
 import Dashboard from "./views/Dashboard/Dashboard";
-import AddQuestion from "./views/AddQuestion/index";
+import AddQuestion from "./views/AddQuestion/AddQuestion";
 import LeaderBoard from "./views/Leaderboard/Leaderboard";
 import NotFound from "./views/NotFound";
 import Switch from "./views/Switch";
