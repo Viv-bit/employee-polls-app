@@ -1,8 +1,17 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
+import { Provider } from "react-redux";
+import { initCreateStore } from "./redux/store";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("test for app component", () => {
+  test("if app is mounted on DOM", () => {
+    render(
+      <Provider store={initCreateStore()}>
+        <App />
+      </Provider>
+    );
+    const divElement = screen.getByText(/app/i);
+
+    expect(divElement).toBeDefined();
+  });
 });

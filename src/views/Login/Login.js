@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Button, Form, Card } from "react-bootstrap";
-import LoginImage from "../assets/images/group.png";
-import { setAuthUser } from "../redux/actions/authUser";
+import LoginImage from "../../assets/images/group.png";
+import { setAuthUser } from "../../redux/actions/authUser";
 
 const styles = {
   cardContainer: {
@@ -40,7 +40,7 @@ const Login = () => {
   };
 
   return (
-    <Fragment>
+    <div role="authenticate">
       <Container>
         <Row className="align-items-center justify-content-center min-vh-100">
           <Col xs={12} md={6}>
@@ -110,7 +110,7 @@ const Login = () => {
           </Col>
         </Row>
       </Container>
-    </Fragment>
+    </div>
   );
 };
 

@@ -11,8 +11,10 @@ const Result = ({ question, id }) => {
   const { optionOne, optionTwo, timestamp } = question;
 
   const users = useSelector(({ users }) => users);
-  const authUser = useSelector(({ authUser }) => authUser);
-  const user = users[authUser];
+  const authenticatedUser = useSelector(
+    ({ authenticatedUser }) => authenticatedUser
+  );
+  const user = users[authenticatedUser];
   let navigate = useNavigate();
 
   const optionOneVotes = optionOne.votes.length;

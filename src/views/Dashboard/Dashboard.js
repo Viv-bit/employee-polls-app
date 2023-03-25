@@ -1,16 +1,18 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { Card, Tab, Tabs } from "react-bootstrap";
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 import { Link } from "react-router-dom";
-import PollView from "../components/PollView";
+import PollView from "../../components/PollView";
 
 const Dashboard = () => {
   const questions = useSelector(({ questions }) => questions);
   const users = useSelector(({ users }) => users);
-  const authUser = useSelector(({ authUser }) => authUser);
+  const authenticatedUser = useSelector(
+    ({ authenticatedUser }) => authenticatedUser
+  );
 
-  const answersID = Object.keys(users[authUser].answers);
+  const answersID = Object.keys(users[authenticatedUser].answers);
   const unansweredPoll = Object.values(questions)
     .filter((question) => !answersID.includes(question.id))
     .sort((a, b) => b.timestamp - a.timestamp);
@@ -20,7 +22,7 @@ const Dashboard = () => {
     .sort((a, b) => b.timestamp - a.timestamp);
 
   return (
-    <Fragment>
+    <div role="dashboard">
       <Layout>
         <Tabs className="justify-content-between flex-nowrap">
           <Tab.Pane eventKey="unanswered" title="Unanswered Questions">
@@ -28,8 +30,9 @@ const Dashboard = () => {
               <Card className="text-center mt-3">
                 <Card.Header>
                   <Card.Title>
-                    No Unanswered Polls, <span>{users[authUser].name}</span> Try
-                    adding one <Link to="add"></Link>
+                    No Unanswered Polls,{" "}
+                    <span>{users[authenticatedUser].name}</span> Try adding one{" "}
+                    <Link to="add"></Link>
                   </Card.Title>
                 </Card.Header>
               </Card>
@@ -52,8 +55,8 @@ const Dashboard = () => {
               <Card className="text-center mt-3">
                 <Card.Header>
                   <Card.Title>
-                    No Answered Polls, <span>{users[authUser].name}</span> Try
-                    some polls
+                    No Answered Polls,{" "}
+                    <span>{users[authenticatedUser].name}</span> Try some polls
                   </Card.Title>
                 </Card.Header>
               </Card>
@@ -73,7 +76,7 @@ const Dashboard = () => {
           </Tab.Pane>
         </Tabs>
       </Layout>
-    </Fragment>
+    </div>
   );
 };
 

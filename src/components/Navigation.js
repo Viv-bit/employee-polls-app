@@ -10,7 +10,9 @@ import { handleSetAuthUser } from "../redux/actions/authUser";
 const Navigation = () => {
   const dispatch = useDispatch();
   let navigate = useNavigate();
-  const authUser = useSelector(({ authUser }) => authUser);
+  const authenticatedUser = useSelector(
+    ({ authenticatedUser }) => authenticatedUser
+  );
   const users = useSelector(({ users }) => users);
   const handleLogout = () => {
     dispatch(handleSetAuthUser());
@@ -44,16 +46,16 @@ const Navigation = () => {
                 <Navbar.Text className="text-mute">
                   {sayGreetings()}
                 </Navbar.Text>
-                <Navbar.Text>{users[authUser]?.name}</Navbar.Text>
+                <Navbar.Text>{users[authenticatedUser]?.name}</Navbar.Text>
                 <Avatar
                   width={40}
                   height={40}
                   avatarURL={
-                    users[authUser]?.avatarURL
-                      ? users[authUser].avatarURL
+                    users[authenticatedUser]?.avatarURL
+                      ? users[authenticatedUser].avatarURL
                       : "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
                   }
-                  name={users[authUser]?.name}
+                  name={users[authenticatedUser]?.name}
                 />
               </NavItem>
               <NavItem>

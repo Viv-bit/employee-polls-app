@@ -7,10 +7,12 @@ import styles from "../assets/css/styles.module.css";
 import Question from "../components/Question";
 import Result from "../components/Result";
 import Layout from "../components/Layout";
-import NotFound from "../views/NotFound";
+import NotFound from "./NotFound";
 
-const PollSwitch = () => {
-  const authUser = useSelector(({ authUser }) => authUser);
+const Switch = () => {
+  const authenticatedUser = useSelector(
+    ({ authenticatedUser }) => authenticatedUser
+  );
   const questions = useSelector(({ questions }) => questions);
   const users = useSelector(({ users }) => users);
 
@@ -19,7 +21,7 @@ const PollSwitch = () => {
   const { question_id } = params;
   const question = questions[question_id];
   const author = users[question?.author];
-  const authUserAnswers = users[authUser].answers;
+  const authUserAnswers = users[authenticatedUser].answers;
   const answeredPoll = authUserAnswers.hasOwnProperty(question_id)
     ? true
     : false;
@@ -28,7 +30,7 @@ const PollSwitch = () => {
     return <NotFound />;
   } else {
     return (
-      <Fragment>
+      <>
         <Layout>
           <Card className="mt-3">
             <Card.Header>
@@ -72,9 +74,9 @@ const PollSwitch = () => {
             </Card.Body>
           </Card>
         </Layout>
-      </Fragment>
+      </>
     );
   }
 };
 
-export default PollSwitch;
+export default Switch;

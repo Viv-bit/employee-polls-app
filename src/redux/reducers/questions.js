@@ -1,5 +1,5 @@
 import {
-  ADD_QUESTION,
+  ADD_NEW_QUESTION,
   RECEIVE_QUESTIONS,
   SET_QUESTION_ANSWER,
 } from "../actions/actionTypes";
@@ -23,7 +23,7 @@ const questions = (state = {}, action) => {
           },
         },
       };
-    case ADD_QUESTION:
+    case ADD_NEW_QUESTION:
       const { question } = action;
       return {
         ...state,

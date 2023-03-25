@@ -1,4 +1,4 @@
-import { SET_AUTH_USER, RESET_AUTH_USER } from "./actionTypes";
+import { SET_AUTH_USER, RESET_USER } from "./actionTypes";
 
 export const setAuthUser = (id) => {
   return {
@@ -9,6 +9,6 @@ export const setAuthUser = (id) => {
 
 export const handleSetAuthUser = () => {
   return {
-    type: RESET_AUTH_USER,
+    type: RESET_USER,
   };
 };

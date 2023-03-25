@@ -4,7 +4,7 @@ import { showLoading, hideLoading } from "react-redux-loading";
 
 // import all actionTypes
 import {
-  ADD_QUESTION,
+  ADD_NEW_QUESTION,
   RECEIVE_QUESTIONS,
   SET_QUESTION_ANSWER,
 } from "./actionTypes";
@@ -27,7 +27,7 @@ export const handleAnswerToQuestion = (authedUser, qid, answer) => {
 
 export const handleAddQuestion = (question) => {
   return {
-    type: ADD_QUESTION,
+    type: ADD_NEW_QUESTION,
     question,
   };
 };

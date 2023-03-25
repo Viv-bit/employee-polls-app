@@ -2,9 +2,9 @@ import React, { Fragment, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Card, Form, Button, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import Layout from "../components/Layout";
-import styles from "../assets/css/styles.module.css";
-import { handleSaveQuestion } from "../redux/actions/questions";
+import Layout from "../../components/Layout";
+import styles from "../../assets/css/styles.module.css";
+import { handleSaveQuestion } from "../../redux/actions/questions";
 
 const AddQuestion = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,9 @@ const AddQuestion = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [validated, setValidated] = useState(false);
-  const authUser = useSelector(({ authUser }) => authUser);
+  const authenticatedUser = useSelector(
+    ({ authenticatedUser }) => authenticatedUser
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +30,7 @@ const AddQuestion = () => {
 
     new Promise((resolve, reject) => {
       setIsLoading(true);
-      dispatch(handleSaveQuestion(optionOne, optionTwo, authUser));
+      dispatch(handleSaveQuestion(optionOne, optionTwo, authenticatedUser));
       setTimeout(() => resolve("DONE"), 1000);
     }).then(() => {
       setValues({

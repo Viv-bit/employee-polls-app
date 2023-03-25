@@ -2,21 +2,23 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBar from "react-redux-loading";
-import { handleInitialData } from "../redux/actions/shared";
+import { handleInitialData } from "./redux/actions/shared";
 
 // Import all components here
-import Login from "./Login";
-import Dashboard from "./Dashboard";
-import AddQuestion from "./AddQuestion";
-import LeaderBoard from "./Leaderboard";
-import NotFound from "./NotFound";
-import PollSwitch from "./PollSwitch";
-import AuthRoute from "../routes/AuthRoute";
-import Navigation from "../components/Navigation";
+import Login from "./views/Login/Login";
+import Dashboard from "./views/Dashboard/Dashboard";
+import AddQuestion from "./views/AddQuestion/index";
+import LeaderBoard from "./views/Leaderboard/Leaderboard";
+import NotFound from "./views/NotFound";
+import Switch from "./views/Switch";
+import AuthRoute from "./routes/AuthRoute";
+import Navigation from "./components/Navigation";
 
 const App = () => {
   const dispatch = useDispatch();
-  const authUser = useSelector(({ authUser }) => authUser);
+  const authenticatedUser = useSelector(
+    ({ authenticatedUser }) => authenticatedUser
+  );
 
   useEffect(() => {
     dispatch(handleInitialData());
@@ -24,9 +26,9 @@ const App = () => {
 
   return (
     <Router>
-      <div className="App">
+      <div className="App" data-testid="app">
         <LoadingBar />
-        {authUser && <Navigation />}
+        {authenticatedUser && <Navigation />}
         <Routes>
           <Route path="/" element={<Login />} />
           <Route
@@ -50,7 +52,7 @@ const App = () => {
             path="questions/:question_id"
             element={
               <AuthRoute>
-                <PollSwitch />
+                <Switch />
               </AuthRoute>
             }
           />

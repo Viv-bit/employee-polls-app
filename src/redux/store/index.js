@@ -4,6 +4,8 @@ import middleware from "../middleware";
 
 const reducersConfig = (state, action) => reducersRoot(state, action);
 
-const store = createStore(reducersConfig, middleware);
+export const initCreateStore = () => createStore(reducersConfig, middleware);
+
+const store = initCreateStore();
 
 export default store;

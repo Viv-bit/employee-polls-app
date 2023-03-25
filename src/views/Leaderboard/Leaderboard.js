@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Card } from "react-bootstrap";
-import ScoreCard from "../components/ScoreCard";
-import Layout from "../components/Layout";
-import ScoreCardLabel from "../components/ScoreCardLabel";
+import ScoreCard from "../../components/ScoreCard";
+import Layout from "../../components/Layout";
+import ScoreCardLabel from "../../components/ScoreCardLabel";
 
 const LeaderBoard = () => {
   const users = useSelector(({ users }) => users);

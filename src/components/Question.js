@@ -9,7 +9,9 @@ const Question = ({ id, question }) => {
 
   const [values, setValues] = useState("");
   const [validated, setValidated] = useState(false);
-  const authUser = useSelector(({ authUser }) => authUser);
+  const authenticatedUser = useSelector(
+    ({ authenticatedUser }) => authenticatedUser
+  );
   const { optionOne, optionTwo } = question;
 
   const handleChange = (e) => {
@@ -20,7 +22,7 @@ const Question = ({ id, question }) => {
     e.preventDefault();
     const { answer } = values;
     if (answer !== "") {
-      dispatch(handlesaveAnswer(authUser, id, answer));
+      dispatch(handlesaveAnswer(authenticatedUser, id, answer));
     } else {
       setValidated(true);
     }
