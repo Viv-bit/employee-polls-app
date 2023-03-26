@@ -9,6 +9,7 @@ const Question = ({ id, question }) => {
 
   const [values, setValues] = useState("");
   const [validated, setValidated] = useState(false);
+  const [error, setError] = useState("");
   const authenticatedUser = useSelector(
     ({ authenticatedUser }) => authenticatedUser
   );
@@ -21,6 +22,10 @@ const Question = ({ id, question }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { answer } = values;
+    if (!answer) {
+      setError("Ensure to select an answer");
+      return;
+    }
     if (answer !== "") {
       dispatch(handlesaveAnswer(authenticatedUser, id, answer));
     } else {
@@ -74,11 +79,11 @@ const Question = ({ id, question }) => {
                 fontWeight: 500,
                 border: "none",
               }}
-              disabled={disabled}
             >
               Submit
             </Button>
           </Form.Group>
+          <span style={{ color: "red", paddingTop: "10px" }}>{error}</span>
         </Form>
       </Card.Body>
     </Fragment>

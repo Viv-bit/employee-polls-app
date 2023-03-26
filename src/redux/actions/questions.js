@@ -1,4 +1,4 @@
-import { saveQuestion, saveAnswer } from "../../utils/API";
+import { saveQuestion, saveQuestionAnswer } from "../../utils/API";
 import { handleQuestionToUser } from "./users";
 import { showLoading, hideLoading } from "react-redux-loading";
 
@@ -51,7 +51,7 @@ export const handleSaveQuestion = (optionOneText, optionTwoText, author) => {
 export const handlesaveAnswer = (authedUser, qid, answer) => {
   return (dispatch) => {
     dispatch(showLoading());
-    return saveAnswer({
+    return saveQuestionAnswer({
       authedUser,
       qid,
       answer,

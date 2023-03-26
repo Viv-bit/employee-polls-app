@@ -10,7 +10,7 @@ import Dashboard from "./views/Dashboard/Dashboard";
 import AddQuestion from "./views/AddQuestion/AddQuestion";
 import LeaderBoard from "./views/Leaderboard/Leaderboard";
 import NotFound from "./views/NotFound";
-import Switch from "./views/Switch";
+import Switch from "./views/Switch/Switch";
 import AuthRoute from "./routes/AuthRoute";
 import Navigation from "./components/Navigation";
 

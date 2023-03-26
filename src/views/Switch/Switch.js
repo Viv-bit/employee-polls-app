@@ -2,12 +2,12 @@ import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Card, Row, Col } from "react-bootstrap";
-import Avatar from "../components/Avatar";
-import styles from "../assets/css/styles.module.css";
-import Question from "../components/Question";
-import Result from "../components/Result";
-import Layout from "../components/Layout";
-import NotFound from "./NotFound";
+import Avatar from "../../components/Avatar";
+import styles from "../../assets/css/styles.module.css";
+import Question from "../../components/Question";
+import Result from "../../components/Result";
+import Layout from "../../components/Layout";
+import NotFound from "../NotFound";
 
 const Switch = () => {
   const authenticatedUser = useSelector(
