@@ -6,6 +6,7 @@ import AddQuestion from "./AddQuestion";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { setAuthUser } from "../../redux/actions/authUser";
+import { saveQuestion } from "../../utils/API";
 import { handleSaveQuestion } from "../../redux/actions/questions";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -22,7 +23,9 @@ import { SET_AUTH_USER } from "../../redux/actions/actionTypes";
 
 // jest.mock("react-redux");
 const mockStore = configureMockStore([thunk]);
-
+jest.mock("../../utils/api", () => ({
+  saveQuestion: jest.fn(),
+}));
 describe("test for addQuestion component", () => {
   let store;
   beforeEach(() => {
@@ -61,8 +64,15 @@ describe("test for addQuestion component", () => {
   });
 
   test("if submission is succeesful when all conditions are met", async () => {
-    // const mockDispatch = jest.fn();
-    // useDispatch.mockReturnValue(mockDispatch);
+    const optionOneText = "Option one";
+    const optionTwoText = "Option two";
+    const author = "user1";
+
+    // Set up mock store
+    const store = mockStore({});
+
+    // Mock the API call to save the question
+    saveQuestion.mockResolvedValue({});
     const { getByText, getByRole, getByPlaceholderText } = render(
       <Provider store={store}>
         <Router>
@@ -78,12 +88,14 @@ describe("test for addQuestion component", () => {
 
     fireEvent.click(buttonElement);
 
-    await waitFor(() => {
-      const actions = store.getActions();
-      console.log("dff", handleSaveQuestion("Option 1", "Option 2", "User1"));
-      expect(actions).toEqual([
-        handleSaveQuestion("Option 1", "Option 2", "User1"),
-      ]);
+    await store.dispatch(
+      handleSaveQuestion(optionOneText, optionTwoText, author)
+    );
+
+    expect(saveQuestion).toHaveBeenCalledWith({
+      optionOneText,
+      optionTwoText,
+      author,
     });
   });
 });
