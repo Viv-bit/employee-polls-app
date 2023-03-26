@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test for app component renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="App"
+    data-testid="app"
+  >
+    <div>
+      <div
+        class=""
+        style="opacity: 0; transform: translate3d(-100%, 0px, 0px); transition: transform 800ms linear 0s; width: 100%; will-change: transform, opacity; height: 3px; background-color: red; position: absolute;"
+      />
+      <div
+        style="display: table; clear: both;"
+      />
+    </div>
+    <div
+      role="authenticate"
+    >
+      <div
+        class="container"
+      >
+        <div
+          class="align-items-center justify-content-center min-vh-100 row"
+        >
+          <div
+            class="col-md-6 col-12"
+          >
+            <div
+              class="card"
+              style="box-shadow: 0px 1px 29px 0px rgb(1 1 1 / 10%);"
+            >
+              <div
+                class="text-center h-auto card-header"
+              >
+                <div
+                  class="card-title h5"
+                >
+                  Welcome to Would You Rather App!
+                </div>
+                <div
+                  class="card-subtitle h6"
+                >
+                  Please sign in to continue
+                </div>
+              </div>
+              <div
+                class="px-2 card-body"
+              >
+                <img
+                  alt="would-you-rather"
+                  class="card-img"
+                  src="group.png"
+                />
+                <p
+                  class="py-2 text-center card-text"
+                  style="font-size: 1.5rem; font-weight: 600; color: rgb(16, 180, 103); margin-bottom: 0px;"
+                >
+                  Sign In
+                </p>
+                <form
+                  class="px-2 d-flex align-items-center flex-column "
+                >
+                  <select
+                    aria-label="select user"
+                    class="form-select"
+                    role="userSelect"
+                  >
+                    <option
+                      value=""
+                    >
+                      Select User
+                    </option>
+                  </select>
+                  <button
+                    class="my-2 w-100 btn btn-primary"
+                    disabled=""
+                    style="font-size: 1.12rem; text-transform: none; font-weight: 600;"
+                    type="button"
+                  >
+                    Sign In
+                  </button>
+                  <div
+                    class="text-muted mt-2"
+                    style="float: right;"
+                  />
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

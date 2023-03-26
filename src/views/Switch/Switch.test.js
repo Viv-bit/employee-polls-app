@@ -2,7 +2,7 @@ import { showLoading, hideLoading } from "react-redux-loading";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { useDispatch } from "react-redux";
 
-import { saveAnswer } from "../../utils/API";
+import { saveQuestionAnswer } from "../../utils/API";
 import { handlesaveAnswer } from "../../redux/actions/questions";
 import {
   BrowserRouter as Router,
@@ -17,8 +17,8 @@ import thunk from "redux-thunk";
 import configureMockStore from "redux-mock-store";
 
 const mockStore = configureMockStore([thunk]);
-jest.mock("../../utils/api", () => ({
-  saveQuestion: jest.fn(),
+jest.mock("../../utils/API", () => ({
+  saveQuestionAnswer: jest.fn(),
 }));
 const mockSaveAnswer = jest.fn();
 describe("handlesaveAnswer", () => {
@@ -28,7 +28,6 @@ describe("handlesaveAnswer", () => {
       authenticatedUser: "User1",
       question: {},
     });
-    mockSaveAnswer.mockClear();
 
     // mock useDispatch to return the mock implementation of handlesaveAnswer
     // useDispatch.mockReturnValue(jest.fn(() => Promise.resolve()));
@@ -58,43 +57,34 @@ describe("handlesaveAnswer", () => {
       optionOne: { text: "Option one" },
       optionTwo: { text: "Option two" },
     };
-
+    const authedUser = "user1";
     const optionOneText = "Option one";
-    const optionTwoText = "Option two";
-    const id = "123";
-    const { getByText, getByLabelText } = render(
+    const qid = "123";
+
+    // Set up mock store
+    const store = mockStore({});
+
+    // Mock the API call to save the question
+    saveQuestionAnswer.mockResolvedValue({});
+    const { getByText, getByRole, getByLabelText } = render(
       <Provider store={store}>
         <Question id={question.id} question={question} />
       </Provider>
     );
     const optionOne = getByLabelText("Option one");
-    const submitButton = getByText("Submit");
-    fireEvent.click(optionOne);
-    fireEvent.click(submitButton);
+    fireEvent.change(optionOne, {
+      target: { value: "Option one", name: "answer" },
+    });
+    const buttonElement = getByRole("button", { name: "Submit" });
 
-    console.log(question);
+    fireEvent.click(buttonElement);
 
-    expect(mockSaveAnswer).toHaveBeenCalledWith(question);
-    await waitFor(() => expect(mockSaveAnswer).toHaveBeenCalledTimes(1));
+    await store.dispatch(handlesaveAnswer(authedUser, qid, optionOneText));
 
-    //     const myFunction = jest.fn();
-    // myFunction('arg');
-    // expect(myFunction).toHaveBeenCalledWith('arg');
-    // expect(myFunction).toHaveBeenCalledTimes(1);
-    // await store.dispatch(handlesaveAnswer(optionOneText, optionTwoText, id));
-
-    // expect(saveQuestion).toHaveBeenCalledWith({
-    //   optionOneText,
-    //   optionTwoText,
-    //   author,
-    // });
-    // await waitFor(() => {
-    //   expect(handlesaveAnswer).toHaveBeenCalledWith(
-    //     optionOneText,
-    //     optionTwoText,
-    //     id
-    //   );
-    //   expect(dispatchMock).toHaveBeenCalledTimes(1);
-    // });
+    expect(saveQuestionAnswer).toHaveBeenCalledWith({
+      authedUser,
+      qid,
+      answer: optionOneText,
+    });
   });
 });
