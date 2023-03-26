@@ -1,19 +1,21 @@
-# Getting Started with Create React App
+Would You Rather Project
+This is the assessment project for Udacity's React & Redux course.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+To get started developing right away:
 
-## Available Scripts
+Install all project dependencies with "npm install" or "yarn install"
+Start the development server with npm start or yarn start
+run "npm test" to run the test files
+App launched in browser at http://localhost:3000
 
-In the project directory, you can run:
+Features
+Select a User and Login
+Contribute to Polls by answering questions
+View Poll questions and answers
 
-### `npm start`
+Create a new poll question
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Check Leader board
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
+You're redirected back to the login page if you're not logged in and redirected back to the page you were on when you logged in
+Redux is used to manage state
